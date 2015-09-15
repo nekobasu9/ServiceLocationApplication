@@ -8,6 +8,7 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.TextView;
+import android.os.Handler;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -27,10 +28,13 @@ public class MySerview extends Service implements GoogleApiClient.ConnectionCall
     String str = "";
 
 
+    Handler handler = null;
     private LocationRequest mLocationRequest;
     @Override
     public void onCreate() {
         Log.i(TAG, "onCreate");
+
+        //handler = new Handler();
 
         mGoogleApiClient = new GoogleApiClient.Builder(getApplicationContext())
                 .addApi(LocationServices.API)
@@ -62,6 +66,8 @@ public class MySerview extends Service implements GoogleApiClient.ConnectionCall
     @Override
     public void onDestroy() {
         super.onDestroy();
+
+        handler = null;
 
         Log.d(TAG, "onDestroy()");
 
@@ -109,6 +115,8 @@ public class MySerview extends Service implements GoogleApiClient.ConnectionCall
 
 
 
+
+
     }
 
     @Override
@@ -116,5 +124,27 @@ public class MySerview extends Service implements GoogleApiClient.ConnectionCall
 //        textLog += "onConnectionSuspended()\n";
 //        textView.setText(textLog);
     }
+
+
+//    void setLocationChanged(){
+//
+//
+//        handler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+////                fusedLocationProviderApi.requestLocationUpdates(
+////                        mGoogleApiClient, mLocationRequest, );
+//                getLocationUpdates();
+//            }
+//        },1000);
+//
+//    }
+//    void getLocationUpdates(){
+//        if(mGoogleApiClient.isConnected()) {
+//            LocationServices.FusedLocationApi.requestLocationUpdates(
+//                    mGoogleApiClient, mLocationRequest, this);
+//        }
+//
+//    }
 
 }
